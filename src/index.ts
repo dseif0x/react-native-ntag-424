@@ -48,7 +48,7 @@ class Ntag424 {
    * @param file file to select
    * @returns response code
    */
-  public async selectFile(file: SelectFileOption) {
+  public async selectFile(file: SelectFileOption, commandMode: 'plain' | 'mac' | 'full' = "plain") {
     const adpuHeader = [0x00, 0xa4, 0x00, 0x0c];
     const commandHeader = [] as number[];
     const commandData = [];
@@ -66,7 +66,7 @@ class Ntag424 {
       adpuHeader,
       commandHeader,
       commandData,
-      commandMode: 'plain',
+      commandMode: commandMode,
       includeLe: true,
     });
 
@@ -78,14 +78,14 @@ class Ntag424 {
    * {@link https://www.nxp.com/docs/en/data-sheet/NT4H2421Gx.pdf#page=61&zoom=100,200,154}
    * @returns response data + response code
    */
-  public async getCardUid() {
+  public async getCardUid(commandMode: 'plain' | 'mac' | 'full' = "mac") {
     const adpuHeader = [0x90, 0x51, 0x00, 0x00];
 
     const response = await this.sendCommand({
       adpuHeader,
       commandHeader: [],
       commandData: [],
-      commandMode: 'mac',
+      commandMode: commandMode,
       includeLe: true,
     });
 
@@ -100,7 +100,7 @@ class Ntag424 {
    * @param file file to retrieve
    * @returns response data + response code
    */
-  public async getFileSettings(file: ReadWriteFileOption) {
+  public async getFileSettings(file: ReadWriteFileOption, commandMode: 'plain' | 'mac' | 'full' = "mac") {
     const adpuHeader = [0x90, 0xf5, 0x00, 0x00];
 
     let fileNo;
@@ -115,7 +115,7 @@ class Ntag424 {
       adpuHeader,
       commandHeader,
       commandData: [],
-      commandMode: 'mac',
+      commandMode: commandMode,
       includeLe: true,
     });
 
@@ -129,7 +129,7 @@ class Ntag424 {
    * @param fileSettings see data sheet for input structure
    * @returns response code
    */
-  public async changeFileSettings(file: ReadWriteFileOption, fileSettings: Buffer) {
+  public async changeFileSettings(file: ReadWriteFileOption, fileSettings: Buffer, commandMode: 'plain' | 'mac' | 'full' = "full") {
     const adpuHeader = [0x90, 0x5f, 0x00, 0x00];
 
     let fileNo;
@@ -145,7 +145,7 @@ class Ntag424 {
       adpuHeader,
       commandHeader,
       commandData,
-      commandMode: 'full',
+      commandMode: commandMode,
       includeLe: true,
     });
 
@@ -243,7 +243,7 @@ class Ntag424 {
    * @param newKey updated (16 byte) key data
    * @returns response code
    */
-  public async changeMasterKey(newKey: Buffer) {
+  public async changeMasterKey(newKey: Buffer, commandMode: 'plain' | 'mac' | 'full' = "full") {
     const adpuHeader = [0x90, 0xc4, 0x00, 0x00];
     const commandHeader = [0x00];
 
@@ -254,7 +254,7 @@ class Ntag424 {
       adpuHeader,
       commandHeader,
       commandData,
-      commandMode: 'full',
+      commandMode: commandMode,
       includeLe: true,
     });
 
@@ -269,7 +269,7 @@ class Ntag424 {
    * @param newKey new (16 byte) key data
    * @returns response code
    */
-  public async changeApplicationKey(keySlot: number, oldKey: Buffer, newKey: Buffer) {
+  public async changeApplicationKey(keySlot: number, oldKey: Buffer, newKey: Buffer, commandMode: 'plain' | 'mac' | 'full' = "full") {
     const adpuHeader = [0x90, 0xc4, 0x00, 0x00];
     const commandHeader = [keySlot];
 
@@ -284,7 +284,7 @@ class Ntag424 {
       adpuHeader,
       commandHeader,
       commandData,
-      commandMode: 'full',
+      commandMode: commandMode,
       includeLe: true,
     });
 
@@ -297,7 +297,7 @@ class Ntag424 {
    * @param keySlot key slot # to retrieve
    * @returns response data + response code
    */
-  public async getKeyVersion(keySlot: number) {
+  public async getKeyVersion(keySlot: number, commandMode: 'plain' | 'mac' | 'full' = "mac") {
     const adpuHeader = [0x90, 0x64, 0x00, 0x00];
     const commandHeader = [keySlot];
     const commandData = [] as number[];
@@ -306,7 +306,7 @@ class Ntag424 {
       adpuHeader,
       commandHeader,
       commandData,
-      commandMode: 'mac',
+      commandMode: commandMode,
       includeLe: true,
     });
 
