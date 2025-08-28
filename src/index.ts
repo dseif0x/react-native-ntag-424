@@ -450,7 +450,7 @@ class Ntag424 {
     else if (this.commandCounter[1] !== undefined) this.commandCounter[1] += 1;
   }
 
-  private async sendCommand({ adpuHeader, commandHeader, commandData, commandMode, includeLe }: CommandOptions) {
+  public async sendCommand({ adpuHeader, commandHeader, commandData, commandMode, includeLe }: CommandOptions) {
     switch (commandMode) {
       case 'plain': {
         const length = commandHeader.length + commandData.length;
