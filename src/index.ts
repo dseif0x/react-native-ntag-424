@@ -446,8 +446,8 @@ class Ntag424 {
 
   private incrementCommandCounter() {
     if (!this.commandCounter) return;
-    else if (this.commandCounter[0]! < 0xff) this.commandCounter[0] += 1;
-    else this.commandCounter[1] += 1;
+    else if (this.commandCounter[0] !== undefined && this.commandCounter[0] < 0xff) this.commandCounter[0] += 1;
+    else if (this.commandCounter[1] !== undefined) this.commandCounter[1] += 1;
   }
 
   private async sendCommand({ adpuHeader, commandHeader, commandData, commandMode, includeLe }: CommandOptions) {

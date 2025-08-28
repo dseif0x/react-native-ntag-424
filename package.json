@@ -31,8 +31,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{ts,tsx,js,jsx}\"",
     "clean": "del-cli lib",
-    "prepare": "bob build",
-    "release": "release-it"
+    "prepare": "bob build"
   },
   "keywords": [
     "react-native",
@@ -56,7 +55,6 @@
     "@commitlint/config-conventional": "^17.0.2",
     "@evilmartians/lefthook": "^1.5.0",
     "@react-native/eslint-config": "^0.73.1",
-    "@release-it/conventional-changelog": "^5.0.0",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.2.44",
     "commitlint": "^17.0.2",
@@ -69,7 +67,6 @@
     "react": "18.2.0",
     "react-native": "0.73.4",
     "react-native-builder-bob": "^0.23.2",
-    "release-it": "^17.1.1",
     "typescript": "^5.2.2"
   },
   "resolutions": {
@@ -96,23 +93,6 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "release-it": {
-    "git": {
-      "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}"
-    },
-    "npm": {
-      "publish": true
-    },
-    "github": {
-      "release": true
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": "angular"
-      }
-    }
   },
   "eslintConfig": {
     "root": true,
